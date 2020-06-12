@@ -1,0 +1,28 @@
+#imageList ol {
+  list-style: none;
+}
+#imageList img {
+  width: 200px;
+  height: 150px;
+}
+.search-recipe {
+  max-width: 500px;
+  padding-bottom: 20px;
+  padding-top: 50px;
+  margin: auto;
+}
+.image-viewport {
+  height: 1000px;
+  width: 500px;
+  border: 1px solid black;
+}
+.recipe-card {
+  max-width: 400px;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipe-header-image {
+  background-image: url("https://img.buzzfeed.com/thumbnailer-prod-us-east-1/a859957c483f4dcd886e1799025b5693/BFV67735_TiktokSCafemaddyShowsYou3CreativeWaysOfUsingKimchi_FINAL_YT.jpg");
+  background-size: cover;
+}

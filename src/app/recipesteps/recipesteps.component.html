@@ -1,0 +1,142 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Recipe Steps </span>
+    <span class="icon-spacer"></span>
+    <div style="text-align: right;">
+      <a
+        md-button
+        [routerLink]="['']"
+        style="color: aliceblue; font-size: 17px;"
+        >Return to Recipe</a
+      >
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<br />
+<br />
+<div *ngFor="let item of lstRecipe">
+  <div *ngIf="item.id == id">
+    <h2>
+      <b>{{ item.name }}</b>
+    </h2>
+    <br />
+    <div class="row">
+      <div class="column left">
+        <img
+          mat-card-image
+          [defaultImage]="defaultImage"
+          [lazyLoad]="item.thumbnail_url"
+        />
+      </div>
+      <p>{{ item.description }}</p>
+
+      <div class="divnutrition">
+        <mat-card
+          style="position: initial; background-color: indigo; color: aliceblue;"
+        >
+          Nutrition value of the recipe</mat-card
+        >
+        <mat-card
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          Calories : {{ item.nutrition.calories }} cal</mat-card
+        >
+        <mat-card
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          Carbohydrates : {{ item.nutrition.carbohydrates }} g</mat-card
+        >
+        <mat-card
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          Fat : {{ item.nutrition.fat }} g</mat-card
+        >
+        <mat-card
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          Protein : {{ item.nutrition.protein }} g</mat-card
+        >
+        <mat-card
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          Sugar :{{ item.nutrition.sugar }} g</mat-card
+        >
+        <mat-card
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          Fiber : {{ item.nutrition.fiber }} g</mat-card
+        >
+      </div>
+      <div class="divnutrition">
+        <mat-card
+          style="position: initial; background-color: indigo; color: aliceblue;"
+        >
+          Ingredient for the recipe</mat-card
+        >
+        <mat-card
+          *ngFor="let components of item.sections[0].components"
+          style="
+            position: initial;
+            background-color: deepskyblue;
+            color: aliceblue;
+          "
+        >
+          {{ components.raw_text }}
+        </mat-card>
+      </div>
+    </div>
+    <mat-card-content *ngFor="let step of item.instructions">
+      <mat-card
+        >{{ step.display_text }}
+        <div *ngIf="step.end_time == null; else elseBlock">
+          <div style="float: right; color: blue;">
+            <label mat-lable>Time take to perpare this step :3 min</label>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div style="float: right; color: blue;">
+            <label mat-lable>
+              Time take to perpare this step :{{
+                (step.end_time - step.start_time) / 3600 | number: "1.0-0"
+              }}
+              min</label
+            >
+          </div>
+        </ng-template>
+      </mat-card>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+      <label mat-lable
+        >total time to make dish {{ item.total_time_minutes }} min</label
+      >
+    </mat-card-actions> -->
+    <button mat-fab (click)="gotoTop()">👆</button>
+    <app-footer></app-footer>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

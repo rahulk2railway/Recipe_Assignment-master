@@ -1,0 +1,99 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Recipe Gallery </span>
+
+    <span class="icon-spacer"></span>
+    <div style="text-align: center;">
+      <span>Filter By Cooking Time </span>
+      <select
+        ng-model="selected Cooking type"
+        (change)="selectChangeHandler($event)"
+        style="height: 30px;"
+      >
+        <option value="" selected>Select any</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="complex">Complex</option>
+      </select>
+      <input
+        matInput
+        placeholder="Search by title"
+        name="search"
+        [(ngModel)]="searchRecipe"
+        placeholder="Search for a Recipe"
+        style="height: 30px; margin-left: 30px;"
+      />
+
+      <mat-icon matSuffix style="margin-left: 3px;">search </mat-icon>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<br />
+
+<div class="grid-container">
+  <mat-card
+    class="container"
+    *ngFor="let item of lstRecipe | filter: searchRecipe"
+    [routerLink]="['/Recipesteps', item.id]"
+  >
+    <div *ngif="item.id != 1486 || item.id != 1495 || item.id != 1438"></div>
+    <img
+      mat-card-image
+      style="height: 50%;"
+      [defaultImage]="defaultImage"
+      [lazyLoad]="item.thumbnail_url"
+      class="clickable-image"
+    />
+    <mat-card-content class="car-container">
+      <div>
+        <div *ngIf="item.is_shoppable; else elseBlock2">
+          <mat-icon style="margin-left: 3px;" matTooltip="Show here"
+            >shop
+          </mat-icon>
+        </div>
+        <ng-template #elseBlock2> </ng-template>
+        <h4>
+          <b>{{ item.name }}</b>
+        </h4>
+
+        <p ng-repeat="limitTo : 20 : 1">{{ item.description }}</p>
+
+        <ng-template #elseBlock>
+          <label mat-lable
+            >Total time to make dish {{ item.total_time_minutes }} min</label
+          ><br />
+        </ng-template>
+        <div *ngIf="item.total_time_minutes == null; else elseBlock">
+          <label mat-lable>Total time to make dish 10 min</label><br />
+        </div>
+        <ng-template #elseBlock>
+          <label mat-lable
+            >Total time to make dish {{ item.total_time_minutes }} min</label
+          ><br />
+        </ng-template>
+        <div *ngIf="item.user_ratings == null; else elseBlock3">
+          <mat-icon style="margin-left: 3px;" matTooltip="user_ratings"
+            >star
+          </mat-icon>
+        </div>
+        <br />
+        <ng-template #elseBlock3>
+          <mat-icon style="margin-left: 3px;" matTooltip="user_ratings"
+            >star
+          </mat-icon>
+          <mat-icon style="margin-left: 3px;" matTooltip="user_ratings"
+            >star
+          </mat-icon>
+        </ng-template>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<button mat-fab (click)="gotoTop()">👆</button>
+<!-- <button mat-fab>Top</button>
+<div class="top-button">
+  <a href="#top">Back to top</a>
+</div> -->
+<app-footer></app-footer>
+<router-outlet></router-outlet>
